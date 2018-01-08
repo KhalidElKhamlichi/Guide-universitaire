@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/add"
+        android:title="Ajouter une université" />
+
+
+    <item
+        android:id="@+id/delete"
+        android:title="Supprimer une université" />
+    <item
+        android:id="@+id/list"
+        android:title="Lister les universités" />
+    <item
+        android:id="@+id/exit"
+        android:title="Quitter" />
+</menu>
