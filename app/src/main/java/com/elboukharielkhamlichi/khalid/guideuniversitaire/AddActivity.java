@@ -31,15 +31,6 @@ public class AddActivity extends AppCompatActivity {
 
         appDB = AppDatabase.getAppDatabase(this);
 
-    }
-
-    public void ajouter(View view) {
-        EditText nom = (EditText) findViewById(R.id.etNom);
-        EditText ville = (EditText) findViewById(R.id.etVille);
-        EditText email = (EditText) findViewById(R.id.etEmail);
-        EditText tel = (EditText) findViewById(R.id.etTel);
-        EditText adresse = (EditText) findViewById(R.id.etAdresse);
-
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
 
@@ -56,6 +47,17 @@ public class AddActivity extends AppCompatActivity {
 
             }
         });
+
+
+    }
+
+    public void ajouter(View view) {
+        EditText nom = (EditText) findViewById(R.id.etNom);
+        EditText ville = (EditText) findViewById(R.id.etVille);
+        EditText email = (EditText) findViewById(R.id.etEmail);
+        EditText tel = (EditText) findViewById(R.id.etTel);
+        EditText adresse = (EditText) findViewById(R.id.etAdresse);
+
 
         Etablissement etablissement = new Etablissement(nom.getText().toString(), ville.getText().toString(), email.getText().toString(),
                                         tel.getText().toString(), adresse.getText().toString(), type, imageUri);

@@ -39,7 +39,7 @@ public class Etablissement implements Serializable {
         if(imageUri != null)
             this.imageUri = imageUri.toString();
         else
-            this.imageUri = null;
+            this.imageUri = Uri.parse("android.resource://com.elboukharielkhamlichi.khalid.guideuniversitaire/drawable/uae").toString();
     }
 
     public int getEid() {

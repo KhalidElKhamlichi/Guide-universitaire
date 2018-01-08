@@ -23,13 +23,13 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="220dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginStart="148dp"
         android:layout_marginTop="32dp"
         android:onClick="goToListActivity"
-        android:text="Lister les universités"
+        android:text="Lister les etablissements"
         android:textColor="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,13 +37,13 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="220dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginStart="148dp"
         android:layout_marginTop="32dp"
         android:onClick="goToDeleteActivity"
-        android:text="Supprimer une université"
+        android:text="Supprimer un etablissement"
         android:textColor="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,13 +51,13 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="220dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginStart="148dp"
         android:layout_marginTop="32dp"
         android:onClick="goToAddActivity"
-        android:text="Ajouter une université"
+        android:text="Ajouter un etablissement"
         android:textColor="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

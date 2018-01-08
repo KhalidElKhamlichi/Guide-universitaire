@@ -4,15 +4,15 @@
 
     <item
         android:id="@+id/add"
-        android:title="Ajouter une université" />
+        android:title="Ajouter un etablissement" />
 
 
     <item
         android:id="@+id/delete"
-        android:title="Supprimer une université" />
+        android:title="Supprimer un etablissement" />
     <item
         android:id="@+id/list"
-        android:title="Lister les universités" />
+        android:title="Lister les etablissements" />
     <item
         android:id="@+id/exit"
         android:title="Quitter" />
