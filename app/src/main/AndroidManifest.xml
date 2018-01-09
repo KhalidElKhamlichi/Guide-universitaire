@@ -21,11 +21,16 @@
         <activity android:name=".AddActivity" />
         <activity android:name=".ListActivity" />
         <activity android:name=".DeleteActivity" />
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".DetailsActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".ModifyActivity"
+            android:label="@string/title_activity_modify"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

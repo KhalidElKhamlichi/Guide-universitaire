@@ -25,6 +25,7 @@ public class ListActivity extends AppCompatActivity implements EtablissementAdap
     private AppDatabase appDB;
     private List<Etablissement> etablissements;
     private RecyclerView recyclerView;
+    private EtablissementAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class ListActivity extends AppCompatActivity implements EtablissementAdap
         // set up the RecyclerView
         recyclerView = findViewById(R.id.my_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        EtablissementAdapter adapter = new EtablissementAdapter(this, etablissements);
+        adapter = new EtablissementAdapter(this, etablissements);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }
@@ -87,9 +88,6 @@ public class ListActivity extends AppCompatActivity implements EtablissementAdap
 
     void showDialog() {
 
-        // DialogFragment.show() will take care of adding the fragment
-        // in a transaction.  We also want to remove any currently showing
-        // dialog, so make our own transaction and take care of that here.
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Fragment prev = getFragmentManager().findFragmentByTag("dialog");
         if (prev != null) {
@@ -100,5 +98,14 @@ public class ListActivity extends AppCompatActivity implements EtablissementAdap
         // Create and show the dialog.
         DialogFragment newFragment = SearchFragment.newInstance();
         newFragment.show(ft, "dialog");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        etablissements = appDB.etablissementDao().getAll();
+        adapter = new EtablissementAdapter(this, etablissements);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
     }
 }

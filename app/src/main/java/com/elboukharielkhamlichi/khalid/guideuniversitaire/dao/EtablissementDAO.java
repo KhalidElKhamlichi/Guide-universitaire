@@ -32,4 +32,7 @@ public interface EtablissementDAO {
     @Delete
     void delete(Etablissement etablissement);
 
+    @Update
+    void update(Etablissement etablissement);
+
 }
