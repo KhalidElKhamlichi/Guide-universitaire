@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Khalid on 12/29/2017.
@@ -23,6 +24,7 @@ public class Etablissement implements Serializable {
     private String tel;
     private String adresse;
     private String type;
+    List<Etablissement> etablissements;
 
     private String imageUri;
 
@@ -104,5 +106,13 @@ public class Etablissement implements Serializable {
 
     public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
+    }
+
+    public List<Etablissement> getEtablissements() {
+        return etablissements;
+    }
+
+    public void setEtablissements(List<Etablissement> etablissements) {
+        this.etablissements = etablissements;
     }
 }
