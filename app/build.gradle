@@ -36,6 +36,9 @@ dependencies {
 
     compile 'com.squareup.picasso:picasso:2.5.2'
 
+    //Gson
+    compile 'com.google.code.gson:gson:2.8.0'
+
     // Material
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'

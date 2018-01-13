@@ -60,4 +60,11 @@ public class DetailsActivity extends AppCompatActivity {
         adresse.setText(e.getAdresse());
         image.setImageURI(Uri.parse(e.getImageUri()));
     }
+
+
+    public void affecter(View view) {
+        Intent intent = new Intent(this, AffectActivity.class);
+        intent.putExtra("etablissement", e);
+        startActivity(intent);
+    }
 }

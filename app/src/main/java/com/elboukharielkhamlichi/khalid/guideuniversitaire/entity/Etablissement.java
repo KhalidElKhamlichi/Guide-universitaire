@@ -2,10 +2,13 @@ package com.elboukharielkhamlichi.khalid.guideuniversitaire.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.net.Uri;
-import android.os.Parcelable;
+
+import com.elboukharielkhamlichi.khalid.guideuniversitaire.EtablissementConverter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +27,8 @@ public class Etablissement implements Serializable {
     private String tel;
     private String adresse;
     private String type;
-    List<Etablissement> etablissements;
+    @TypeConverters({EtablissementConverter.class})
+    private List<Integer> etablissements;
 
     private String imageUri;
 
@@ -42,6 +46,8 @@ public class Etablissement implements Serializable {
             this.imageUri = imageUri.toString();
         else
             this.imageUri = Uri.parse("android.resource://com.elboukharielkhamlichi.khalid.guideuniversitaire/drawable/uae").toString();
+
+        etablissements = new ArrayList<>();
     }
 
     public int getEid() {
@@ -108,11 +114,11 @@ public class Etablissement implements Serializable {
         this.imageUri = imageUri;
     }
 
-    public List<Etablissement> getEtablissements() {
+    public List<Integer> getEtablissements() {
         return etablissements;
     }
 
-    public void setEtablissements(List<Etablissement> etablissements) {
+    public void setEtablissements(List<Integer> etablissements) {
         this.etablissements = etablissements;
     }
 }
