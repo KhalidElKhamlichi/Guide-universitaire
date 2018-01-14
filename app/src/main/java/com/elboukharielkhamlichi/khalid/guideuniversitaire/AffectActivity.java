@@ -41,7 +41,7 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
         List<String> spEtablissements = new ArrayList<>();
         e = (Etablissement) getIntent().getSerializableExtra("etablissement");
         /*if(e.getEtablissements() == null)
-            e.setEtablissements(new ArrayList<Etablissement>());
+            e.setEtablissements(new ArrayList<Integer>());
         appDB.etablissementDao().update(e);*/
 
         for (Etablissement et : allEtablissements) {
@@ -62,6 +62,7 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
         recyclerView = findViewById(R.id.affRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         etablissements = getEtablissementsFromIds();
+        System.out.println("etablissements: "+etablissements);
         adapter = new EtablissementAdapter(this, etablissements);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
@@ -75,21 +76,22 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
         String selected = sp.getSelectedItem().toString();
         for (Etablissement et : allEtablissements) {
             if(et.getNom().equals(selected)) {
-                e.getEtablissements().add(et.getEid());
-                et.getEtablissements().add(e.getEid());
+                e.getEtablissements().add(new Integer(et.getEid()));
+                et.getEtablissements().add(new Integer(e.getEid()));
                 appDB.etablissementDao().update(e);
                 appDB.etablissementDao().update(et);
+                etablissements.add(et);
+                adapter.notifyDataSetChanged();
                 break;
             }
         }
-        adapter.notifyDataSetChanged();
-        System.out.println("update succeeded " + e.getEtablissements().size());
+        //System.out.println("update succeeded " + e.getEtablissements().size());
     }
 
     public List<Etablissement> getEtablissementsFromIds() {
         List<Etablissement> list = new ArrayList<>();
         for (Etablissement eta : allEtablissements) {
-            if(e.getEtablissements().contains(eta.getEid()))
+            if(e.getEtablissements().contains(new Integer(eta.getEid())))
                 list.add(eta);
         }
         return list;
@@ -98,16 +100,17 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
     @Override
     public void onItemClick(View view, int position) {
 
-        final Etablissement etablissement = allEtablissements.get(position);
+        final Etablissement etablissement = etablissements.get(position);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Supprimer affectation")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        e.getEtablissements().remove(e.getEtablissements().indexOf(etablissement.getEid()));
-                        etablissement.getEtablissements().remove(etablissement.getEtablissements().indexOf(etablissement.getEid()));
+                        e.getEtablissements().remove(new Integer(etablissement.getEid()));
+                        etablissement.getEtablissements().remove(new Integer(e.getEid()));
                         appDB.etablissementDao().update(e);
                         appDB.etablissementDao().update(etablissement);
+                        etablissements.remove(etablissement);
                         adapter.notifyDataSetChanged();
                     }
                 })
