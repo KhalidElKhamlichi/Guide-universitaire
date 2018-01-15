@@ -23,11 +23,12 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
     private AppDatabase appDB;
     private RecyclerView recyclerView;
     private EtablissementAdapter adapter;
+    private ArrayAdapter<String> spAdapter;
     private Spinner sp;
     private Etablissement e;
     private List<Etablissement> allEtablissements;
     private List<Etablissement> etablissements;
-
+    private List<String> spEtablissements;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +39,13 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
 
         appDB = AppDatabase.getAppDatabase(this);
         allEtablissements = appDB.etablissementDao().getAll();
-        List<String> spEtablissements = new ArrayList<>();
+
         e = (Etablissement) getIntent().getSerializableExtra("etablissement");
-        /*if(e.getEtablissements() == null)
-            e.setEtablissements(new ArrayList<Integer>());
-        appDB.etablissementDao().update(e);*/
+
+        spEtablissements = new ArrayList<>();
 
         for (Etablissement et : allEtablissements) {
-            if(et.getEid() != e.getEid()) {
+            if(et.getEid() != e.getEid() && !e.getEtablissements().contains(new Integer(et.getEid()))) {
                 if (!et.getType().equals("universite") && e.getType().equals("universite"))
                     spEtablissements.add(et.getNom());
                 else if (et.getType().equals("universite") && !e.getType().equals("universite"))
@@ -53,16 +53,15 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
             }
         }
 
-        ArrayAdapter<String> arrAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spEtablissements);
+        spAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spEtablissements);
 
-        arrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp.setAdapter(arrAdapter);
+        spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp.setAdapter(spAdapter);
 
         // set up the RecyclerView
         recyclerView = findViewById(R.id.affRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         etablissements = getEtablissementsFromIds();
-        System.out.println("etablissements: "+etablissements);
         adapter = new EtablissementAdapter(this, etablissements);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
@@ -81,6 +80,8 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
                 appDB.etablissementDao().update(e);
                 appDB.etablissementDao().update(et);
                 etablissements.add(et);
+                spEtablissements.remove(et.getNom());
+                spAdapter.notifyDataSetChanged();
                 adapter.notifyDataSetChanged();
                 break;
             }
@@ -111,6 +112,8 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
                         appDB.etablissementDao().update(e);
                         appDB.etablissementDao().update(etablissement);
                         etablissements.remove(etablissement);
+                        spEtablissements.add(etablissement.getNom());
+                        spAdapter.notifyDataSetChanged();
                         adapter.notifyDataSetChanged();
                     }
                 })
