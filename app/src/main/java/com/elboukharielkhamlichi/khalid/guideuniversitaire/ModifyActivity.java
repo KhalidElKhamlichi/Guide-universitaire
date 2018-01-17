@@ -5,16 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
-import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.AppDatabase;
+import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.EtablissementsDBAdaptateur;
 import com.elboukharielkhamlichi.khalid.guideuniversitaire.entity.Etablissement;
 
 public class ModifyActivity extends AppCompatActivity {
@@ -26,7 +23,6 @@ public class ModifyActivity extends AppCompatActivity {
     private EditText adresse;
     private ImageView imgView;
 
-    //private AppDatabase appDB;
     private EtablissementsDBAdaptateur dbAdapter;
     static final int SELECT_PICTURE = 1;
 
@@ -37,7 +33,6 @@ public class ModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify);
 
-        //appDB = AppDatabase.getAppDatabase(this);
         dbAdapter = new EtablissementsDBAdaptateur(this);
         e = (Etablissement) getIntent().getSerializableExtra("etablissement");
 
@@ -93,7 +88,6 @@ public class ModifyActivity extends AppCompatActivity {
         if(!adresse.getText().toString().isEmpty())
             e.setAdresse(adresse.getText().toString());
 
-        //appDB.etablissementDao().update(e);
         dbAdapter.open();
         dbAdapter.updateEtablissement(e);
         dbAdapter.close();
@@ -128,7 +122,6 @@ public class ModifyActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
-
 
                 Uri imageUri = data.getData();
                 imgView.setImageURI(imageUri);

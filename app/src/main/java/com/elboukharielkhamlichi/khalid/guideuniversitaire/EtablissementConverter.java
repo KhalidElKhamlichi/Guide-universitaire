@@ -16,9 +16,6 @@ import java.util.List;
 
 public class EtablissementConverter {
 
-
-
-    @TypeConverter
     public static List<Integer> stringToIntegerList(String data) {
         Gson gson = new Gson();
         if (data == null) {
@@ -30,7 +27,6 @@ public class EtablissementConverter {
         return gson.fromJson(data, listType);
     }
 
-    @TypeConverter
     public static String IntegerListToString(List<Integer> Integers) {
         Gson gson = new Gson();
         return gson.toJson(Integers);

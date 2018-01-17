@@ -46,12 +46,11 @@ public class EtablissementAdapter extends RecyclerView.Adapter<EtablissementAdap
         String nom = mData.get(position).getNom();
         String ville = mData.get(position).getVille();
         String uri = mData.get(position).getImageUri();
-        holder.uniNom.setText(nom);
-        holder.uniVille.setText(ville);
-        System.out.println(position+" : "+uri);
+        holder.etaNom.setText(nom);
+        holder.etaVille.setText(ville);
 
         if(uri != null) {
-            holder.uniImage.setImageURI(Uri.parse(uri));
+            holder.etaImage.setImageURI(Uri.parse(uri));
         }
     }
 
@@ -64,15 +63,15 @@ public class EtablissementAdapter extends RecyclerView.Adapter<EtablissementAdap
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView uniNom;
-        public TextView uniVille;
-        public ImageView uniImage;
+        public TextView etaNom;
+        public TextView etaVille;
+        public ImageView etaImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            uniNom = (TextView) itemView.findViewById(R.id.uniNom);
-            uniVille = (TextView) itemView.findViewById(R.id.uniVille);
-            uniImage = (ImageView) itemView.findViewById(R.id.uniImage);
+            etaNom = (TextView) itemView.findViewById(R.id.uniNom);
+            etaVille = (TextView) itemView.findViewById(R.id.uniVille);
+            etaImage = (ImageView) itemView.findViewById(R.id.uniImage);
             itemView.setOnClickListener(this);
         }
 

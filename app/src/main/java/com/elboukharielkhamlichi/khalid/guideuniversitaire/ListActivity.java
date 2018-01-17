@@ -5,7 +5,6 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.AppDatabase;
+import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.EtablissementsDBAdaptateur;
 import com.elboukharielkhamlichi.khalid.guideuniversitaire.entity.Etablissement;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity implements EtablissementAdapter.ItemClickListener, SearchFragment.OnFragmentInteractionListener {
 
-    private AppDatabase appDB;
     private List<Etablissement> etablissements;
     private RecyclerView recyclerView;
     private EtablissementAdapter adapter;
@@ -32,8 +30,6 @@ public class ListActivity extends AppCompatActivity implements EtablissementAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.MANAGE_DOCUMENTS}, 1);
-        appDB = AppDatabase.getAppDatabase(this);
-        //etablissements = appDB.etablissementDao().getAll();
 
         EtablissementsDBAdaptateur dbAdapter = new EtablissementsDBAdaptateur(this);
         dbAdapter.open();
@@ -104,7 +100,7 @@ public class ListActivity extends AppCompatActivity implements EtablissementAdap
     @Override
     public void onResume() {
         super.onResume();
-        //etablissements = appDB.etablissementDao().getAll();
+
         EtablissementsDBAdaptateur dbAdapter = new EtablissementsDBAdaptateur(this);
         dbAdapter.open();
         etablissements = dbAdapter.getAllEtablissements();

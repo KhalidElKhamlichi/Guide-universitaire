@@ -9,14 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.AppDatabase;
+import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.EtablissementsDBAdaptateur;
 import com.elboukharielkhamlichi.khalid.guideuniversitaire.entity.Etablissement;
 
 import java.util.List;
 
 public class DeleteActivity extends AppCompatActivity implements EtablissementAdapter.ItemClickListener{
 
-    //private AppDatabase appDB;
     private EtablissementsDBAdaptateur dbAdapter;
     private Dialog dialog;
     private List<Etablissement> etablissements;
@@ -26,9 +25,6 @@ public class DeleteActivity extends AppCompatActivity implements EtablissementAd
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete);
-
-        /*appDB = AppDatabase.getAppDatabase(this);
-        etablissements = appDB.etablissementDao().getAll();*/
 
         dbAdapter = new EtablissementsDBAdaptateur(this);
         dbAdapter.open();
@@ -53,9 +49,8 @@ public class DeleteActivity extends AppCompatActivity implements EtablissementAd
         builder.setMessage("Supprimer université")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //appDB.etablissementDao().delete(etablissement);
                         dbAdapter.open();
-                        dbAdapter.removeUniversite(etablissement);
+                        dbAdapter.removeEtablissement(etablissement);
                         dbAdapter.close();
                         etablissements.remove(etablissement);
                         adapter.notifyDataSetChanged();

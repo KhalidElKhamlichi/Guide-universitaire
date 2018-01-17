@@ -1,8 +1,5 @@
 package com.elboukharielkhamlichi.khalid.guideuniversitaire;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

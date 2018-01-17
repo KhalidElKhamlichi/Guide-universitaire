@@ -12,12 +12,11 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.AppDatabase;
+import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.EtablissementsDBAdaptateur;
 import com.elboukharielkhamlichi.khalid.guideuniversitaire.entity.Etablissement;
 
 public class AddActivity extends AppCompatActivity {
 
-    private AppDatabase appDB;
 
     static final int SELECT_PICTURE = 1;
 
@@ -29,10 +28,7 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        appDB = AppDatabase.getAppDatabase(this);
-
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -62,11 +58,10 @@ public class AddActivity extends AppCompatActivity {
         Etablissement etablissement = new Etablissement(nom.getText().toString(), ville.getText().toString(), email.getText().toString(),
                                         tel.getText().toString(), adresse.getText().toString(), type, imageUri);
 
-        //appDB.etablissementDao().insertAll(etablissement);
         EtablissementsDBAdaptateur dbAdapter = new EtablissementsDBAdaptateur(this);
-        dbAdapter.open();
-        System.out.println(dbAdapter.insertEtablissement(etablissement));
 
+        dbAdapter.open();
+        dbAdapter.insertEtablissement(etablissement);
         dbAdapter.close();
 
         Toast.makeText(this, "Etablissement ajouté", Toast.LENGTH_LONG).show();

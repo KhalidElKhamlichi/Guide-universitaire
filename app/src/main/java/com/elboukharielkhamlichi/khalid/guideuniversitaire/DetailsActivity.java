@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.EtablissementsDBAdaptateur;
 import com.elboukharielkhamlichi.khalid.guideuniversitaire.entity.Etablissement;
 
 import java.util.ArrayList;
@@ -58,12 +59,6 @@ public class DetailsActivity extends AppCompatActivity implements EtablissementA
         recyclerView.setAdapter(adapter);
     }
 
-    /*public void modifier(View view) {
-        Intent intent = new Intent(this, ModifyActivity.class);
-        intent.putExtra("etablissement", e);
-        startActivityForResult(intent, REQUEST_CODE);
-    }*/
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -95,12 +90,6 @@ public class DetailsActivity extends AppCompatActivity implements EtablissementA
         image.setImageURI(Uri.parse(e.getImageUri()));
     }
 
-
-    /*public void affecter(View view) {
-        Intent intent = new Intent(this, AffectActivity.class);
-        intent.putExtra("etablissement", e);
-        startActivity(intent);
-    }*/
 
     public List<Etablissement> getEtablissementsFromIds() {
         List<Etablissement> list = new ArrayList<>();

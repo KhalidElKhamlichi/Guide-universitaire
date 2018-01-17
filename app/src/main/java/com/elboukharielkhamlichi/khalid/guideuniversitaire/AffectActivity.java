@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.EtablissementsDBAdaptateur;
 import com.elboukharielkhamlichi.khalid.guideuniversitaire.entity.Etablissement;
 
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ import java.util.List;
 
 public class AffectActivity extends AppCompatActivity implements EtablissementAdapter.ItemClickListener{
 
-    //private AppDatabase appDB;
     private EtablissementsDBAdaptateur dbAdapter;
     private RecyclerView recyclerView;
     private EtablissementAdapter adapter;
@@ -37,15 +37,13 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
 
         sp = (Spinner) findViewById(R.id.spinner);
 
-        //appDB = AppDatabase.getAppDatabase(this);
-        //allEtablissements = appDB.etablissementDao().getAll();
-
         dbAdapter = new EtablissementsDBAdaptateur(this);
         dbAdapter.open();
         allEtablissements = dbAdapter.getAllEtablissements();
         dbAdapter.close();
 
         e = (Etablissement) getIntent().getSerializableExtra("etablissement");
+
         spEtablissements = new ArrayList<>();
 
         for (Etablissement et : allEtablissements) {
@@ -78,10 +76,9 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
         String selected = sp.getSelectedItem().toString();
         for (Etablissement et : allEtablissements) {
             if(et.getNom().equals(selected)) {
+
                 e.getEtablissements().add(new Integer(et.getEid()));
                 et.getEtablissements().add(new Integer(e.getEid()));
-                /*appDB.etablissementDao().update(e);
-                appDB.etablissementDao().update(et);*/
 
                 dbAdapter.open();
                 dbAdapter.updateEtablissement(e);
@@ -92,10 +89,10 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
                 spEtablissements.remove(et.getNom());
                 spAdapter.notifyDataSetChanged();
                 adapter.notifyDataSetChanged();
+
                 break;
             }
         }
-        //System.out.println("update succeeded " + e.getEtablissements().size());
     }
 
     public List<Etablissement> getEtablissementsFromIds() {
@@ -118,8 +115,6 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
                     public void onClick(DialogInterface dialog, int id) {
                         e.getEtablissements().remove(new Integer(etablissement.getEid()));
                         etablissement.getEtablissements().remove(new Integer(e.getEid()));
-                        /*appDB.etablissementDao().update(e);
-                        appDB.etablissementDao().update(etablissement);*/
 
                         dbAdapter.open();
                         dbAdapter.updateEtablissement(e);

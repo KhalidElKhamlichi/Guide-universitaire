@@ -29,6 +29,7 @@
             android:layout_marginStart="117dp"
             android:layout_marginTop="17dp"
             android:clickable="true"
+            android:focusableInTouchMode="true"
             android:translationZ="100dp"
             app:srcCompat="@drawable/uae" />
 
