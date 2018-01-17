@@ -62,7 +62,12 @@ public class AddActivity extends AppCompatActivity {
         Etablissement etablissement = new Etablissement(nom.getText().toString(), ville.getText().toString(), email.getText().toString(),
                                         tel.getText().toString(), adresse.getText().toString(), type, imageUri);
 
-        appDB.etablissementDao().insertAll(etablissement);
+        //appDB.etablissementDao().insertAll(etablissement);
+        EtablissementsDBAdaptateur dbAdapter = new EtablissementsDBAdaptateur(this);
+        dbAdapter.open();
+        System.out.println(dbAdapter.insertEtablissement(etablissement));
+
+        dbAdapter.close();
 
         Toast.makeText(this, "Etablissement ajouté", Toast.LENGTH_LONG).show();
 

@@ -121,4 +121,13 @@ public class Etablissement implements Serializable {
     public void setEtablissements(List<Integer> etablissements) {
         this.etablissements = etablissements;
     }
+
+    @Override
+    public String toString() {
+        return "Etablissement{" +
+                "eid=" + eid +
+                ", nom='" + nom + '\'' +
+                ", ville='" + ville + '\'' +
+                '}';
+    }
 }

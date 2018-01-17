@@ -16,7 +16,8 @@ import java.util.List;
 
 public class DeleteActivity extends AppCompatActivity implements EtablissementAdapter.ItemClickListener{
 
-    private AppDatabase appDB;
+    //private AppDatabase appDB;
+    private EtablissementsDBAdaptateur dbAdapter;
     private Dialog dialog;
     private List<Etablissement> etablissements;
     private EtablissementAdapter adapter;
@@ -26,8 +27,13 @@ public class DeleteActivity extends AppCompatActivity implements EtablissementAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete);
 
-        appDB = AppDatabase.getAppDatabase(this);
-        etablissements = appDB.etablissementDao().getAll();
+        /*appDB = AppDatabase.getAppDatabase(this);
+        etablissements = appDB.etablissementDao().getAll();*/
+
+        dbAdapter = new EtablissementsDBAdaptateur(this);
+        dbAdapter.open();
+        etablissements = dbAdapter.getAllEtablissements();
+        dbAdapter.close();
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
@@ -47,7 +53,10 @@ public class DeleteActivity extends AppCompatActivity implements EtablissementAd
         builder.setMessage("Supprimer université")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        appDB.etablissementDao().delete(etablissement);
+                        //appDB.etablissementDao().delete(etablissement);
+                        dbAdapter.open();
+                        dbAdapter.removeUniversite(etablissement);
+                        dbAdapter.close();
                         etablissements.remove(etablissement);
                         adapter.notifyDataSetChanged();
                     }

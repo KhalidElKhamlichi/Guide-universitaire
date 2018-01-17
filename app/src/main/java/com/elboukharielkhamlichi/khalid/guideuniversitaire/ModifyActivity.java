@@ -26,7 +26,8 @@ public class ModifyActivity extends AppCompatActivity {
     private EditText adresse;
     private ImageView imgView;
 
-    private AppDatabase appDB;
+    //private AppDatabase appDB;
+    private EtablissementsDBAdaptateur dbAdapter;
     static final int SELECT_PICTURE = 1;
 
     private Etablissement e;
@@ -36,8 +37,8 @@ public class ModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify);
 
-        appDB = AppDatabase.getAppDatabase(this);
-
+        //appDB = AppDatabase.getAppDatabase(this);
+        dbAdapter = new EtablissementsDBAdaptateur(this);
         e = (Etablissement) getIntent().getSerializableExtra("etablissement");
 
         nom = (EditText) findViewById(R.id.etNom);
@@ -92,7 +93,10 @@ public class ModifyActivity extends AppCompatActivity {
         if(!adresse.getText().toString().isEmpty())
             e.setAdresse(adresse.getText().toString());
 
-        appDB.etablissementDao().update(e);
+        //appDB.etablissementDao().update(e);
+        dbAdapter.open();
+        dbAdapter.updateEtablissement(e);
+        dbAdapter.close();
 
         Intent intent = new Intent();
         intent.putExtra("newEtab", e);

@@ -33,7 +33,12 @@ public class ListActivity extends AppCompatActivity implements EtablissementAdap
         setContentView(R.layout.activity_list);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.MANAGE_DOCUMENTS}, 1);
         appDB = AppDatabase.getAppDatabase(this);
-        etablissements = appDB.etablissementDao().getAll();
+        //etablissements = appDB.etablissementDao().getAll();
+
+        EtablissementsDBAdaptateur dbAdapter = new EtablissementsDBAdaptateur(this);
+        dbAdapter.open();
+        etablissements = dbAdapter.getAllEtablissements();
+        dbAdapter.close();
 
         FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.fab);
         myFab.setOnClickListener(new View.OnClickListener() {
@@ -62,20 +67,16 @@ public class ListActivity extends AppCompatActivity implements EtablissementAdap
         List<Etablissement> searchResult = new ArrayList<>();
 
         for (Etablissement e : etablissements) {
-            System.out.println("type : "+type);
             if(e.getNom().toLowerCase().equals(nom.toLowerCase())) {
                 searchResult.add(e);
-                System.out.println("with name");
             }
             else if(!ville.isEmpty()) {
                 if (e.getVille().toLowerCase().contains(ville.toLowerCase()) && e.getType().equals(type)) {
                     searchResult.add(e);
-                    System.out.println("with ville");
                 }
             }
             else if(e.getType().equals(type)) {
                 searchResult.add(e);
-                System.out.println("with type : "+e.getType()+" == "+type);
             }
 
 
@@ -103,7 +104,11 @@ public class ListActivity extends AppCompatActivity implements EtablissementAdap
     @Override
     public void onResume() {
         super.onResume();
-        etablissements = appDB.etablissementDao().getAll();
+        //etablissements = appDB.etablissementDao().getAll();
+        EtablissementsDBAdaptateur dbAdapter = new EtablissementsDBAdaptateur(this);
+        dbAdapter.open();
+        etablissements = dbAdapter.getAllEtablissements();
+        dbAdapter.close();
         adapter = new EtablissementAdapter(this, etablissements);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);

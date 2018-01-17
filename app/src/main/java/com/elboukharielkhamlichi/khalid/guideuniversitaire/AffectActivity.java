@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.elboukharielkhamlichi.khalid.guideuniversitaire.database.AppDatabase;
 import com.elboukharielkhamlichi.khalid.guideuniversitaire.entity.Etablissement;
 
 import java.util.ArrayList;
@@ -20,7 +19,8 @@ import java.util.List;
 
 public class AffectActivity extends AppCompatActivity implements EtablissementAdapter.ItemClickListener{
 
-    private AppDatabase appDB;
+    //private AppDatabase appDB;
+    private EtablissementsDBAdaptateur dbAdapter;
     private RecyclerView recyclerView;
     private EtablissementAdapter adapter;
     private ArrayAdapter<String> spAdapter;
@@ -37,11 +37,15 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
 
         sp = (Spinner) findViewById(R.id.spinner);
 
-        appDB = AppDatabase.getAppDatabase(this);
-        allEtablissements = appDB.etablissementDao().getAll();
+        //appDB = AppDatabase.getAppDatabase(this);
+        //allEtablissements = appDB.etablissementDao().getAll();
+
+        dbAdapter = new EtablissementsDBAdaptateur(this);
+        dbAdapter.open();
+        allEtablissements = dbAdapter.getAllEtablissements();
+        dbAdapter.close();
 
         e = (Etablissement) getIntent().getSerializableExtra("etablissement");
-
         spEtablissements = new ArrayList<>();
 
         for (Etablissement et : allEtablissements) {
@@ -52,7 +56,6 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
                     spEtablissements.add(et.getNom());
             }
         }
-
         spAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spEtablissements);
 
         spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -77,8 +80,14 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
             if(et.getNom().equals(selected)) {
                 e.getEtablissements().add(new Integer(et.getEid()));
                 et.getEtablissements().add(new Integer(e.getEid()));
-                appDB.etablissementDao().update(e);
-                appDB.etablissementDao().update(et);
+                /*appDB.etablissementDao().update(e);
+                appDB.etablissementDao().update(et);*/
+
+                dbAdapter.open();
+                dbAdapter.updateEtablissement(e);
+                dbAdapter.updateEtablissement(et);
+                dbAdapter.close();
+
                 etablissements.add(et);
                 spEtablissements.remove(et.getNom());
                 spAdapter.notifyDataSetChanged();
@@ -109,8 +118,14 @@ public class AffectActivity extends AppCompatActivity implements EtablissementAd
                     public void onClick(DialogInterface dialog, int id) {
                         e.getEtablissements().remove(new Integer(etablissement.getEid()));
                         etablissement.getEtablissements().remove(new Integer(e.getEid()));
-                        appDB.etablissementDao().update(e);
-                        appDB.etablissementDao().update(etablissement);
+                        /*appDB.etablissementDao().update(e);
+                        appDB.etablissementDao().update(etablissement);*/
+
+                        dbAdapter.open();
+                        dbAdapter.updateEtablissement(e);
+                        dbAdapter.updateEtablissement(etablissement);
+                        dbAdapter.close();
+
                         etablissements.remove(etablissement);
                         spEtablissements.add(etablissement.getNom());
                         spAdapter.notifyDataSetChanged();

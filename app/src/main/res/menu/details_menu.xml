@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuAff"
+        android:title="Affecter un etablissement " />
+
+
+    <item
+        android:id="@+id/menuModifier"
+        android:title="Modifier etablissement " />
+</menu>
