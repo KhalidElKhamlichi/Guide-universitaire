@@ -1,8 +1,5 @@
 package com.elboukharielkhamlichi.khalid.guideuniversitaire.entity;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
 import android.net.Uri;
 
 import com.elboukharielkhamlichi.khalid.guideuniversitaire.EtablissementConverter;
@@ -15,10 +12,9 @@ import java.util.List;
  * Created by Khalid on 12/29/2017.
  */
 
-@Entity
+
 public class Etablissement implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
     private int eid;
 
     private String nom;
@@ -27,7 +23,6 @@ public class Etablissement implements Serializable {
     private String tel;
     private String adresse;
     private String type;
-    @TypeConverters({EtablissementConverter.class})
     private List<Integer> etablissements;
 
     private String imageUri;

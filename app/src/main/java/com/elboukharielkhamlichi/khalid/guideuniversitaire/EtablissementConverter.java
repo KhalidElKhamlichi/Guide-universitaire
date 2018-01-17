@@ -1,8 +1,6 @@
 package com.elboukharielkhamlichi.khalid.guideuniversitaire;
 
-import android.arch.persistence.room.TypeConverter;
 
-import com.elboukharielkhamlichi.khalid.guideuniversitaire.entity.Etablissement;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
